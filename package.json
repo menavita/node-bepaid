@@ -1,0 +1,23 @@
+{
+  "name": "node-erip-bepaid",
+  "version": "1.0.0",
+  "description": "Node module for using ERIP BePaid API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/noglik/node-erip-bepaid.git"
+  },
+  "keywords": [
+    "erip",
+    "bepaid"
+  ],
+  "author": "noglik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noglik/node-erip-bepaid/issues"
+  },
+  "homepage": "https://github.com/noglik/node-erip-bepaid#readme"
+}
