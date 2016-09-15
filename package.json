@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/noglik/node-erip-bepaid.git"
+    "url": "git+ssh://git@github.com/Staronka/node-erip-bepaid.git"
   },
   "keywords": [
     "erip",
@@ -17,7 +17,7 @@
   "author": "noglik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/noglik/node-erip-bepaid/issues"
+    "url": "https://github.com/Staronka/node-erip-bepaid/issues"
   },
-  "homepage": "https://github.com/noglik/node-erip-bepaid#readme"
+  "homepage": "https://github.com/Staronka/node-erip-bepaid#readme"
 }
