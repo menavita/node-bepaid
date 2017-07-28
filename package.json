@@ -1,14 +1,14 @@
 {
-  "name": "node-erip-bepaid",
+  "name": "node-bepaid",
   "version": "1.0.0",
-  "description": "Node module for using ERIP BePaid API",
+  "description": "Node module for using BePaid API",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 5000 test/token.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Staronka/node-erip-bepaid.git"
+    "url": "git+ssh://git@github.com/Staronka/node-bepaid.git"
   },
   "keywords": [
     "erip",
@@ -17,7 +17,15 @@
   "author": "noglik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Staronka/node-erip-bepaid/issues"
+    "url": "https://github.com/Staronka/node-bepaid/issues"
   },
-  "homepage": "https://github.com/Staronka/node-erip-bepaid#readme"
+  "homepage": "https://github.com/Staronka/node-bepaid#readme",
+  "dependencies": {
+    "q": "^1.5.0",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.4.2",
+    "should": "^11.2.1"
+  }
 }

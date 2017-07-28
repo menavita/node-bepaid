@@ -3,32 +3,30 @@
 var request = require('request');
 var Q = require('q');
 
-function EPaid(shop_id, shop_key, email, notification_url){
+function Bepaid(shop) {
 
-	this.email = email;
-	this.notification_url = notification_url;
-	this.shop_id = shop_id;
-	this.shop_key = shop_key;
+	this.shop_id = shop.shop_id;
+	this.shop_key = shop.shop_key;
 
 };
 
-EPaid.prototype.create = function(amount, description, order_id, permanent,account_number, service_no){
+Bepaid.prototype.createErip = function(payment) {
 
 	var d = Q.defer();
 
 	var req = {
 		'request':{
-			'amount': amount,
-			'currency': 'BYN',
-			'description': description,
-			'email': this.email,
+			'amount': payment.amount,
+			'currency': payment.currency,
+			'description': payment.description,
+			'email': payment.email,
 			'ip': '127.0.0.1',
-			'notification_url': this.notification_url,
+			'notification_url': payment.notification_url,
 			'payment_method':{
 				'type': 'erip',
-				'permanent': permanent,
-				'account_number': account_number,
-				'service_no': service_no
+				'permanent': payment.permanent,
+				'account_number': payment.account_number,
+				'service_no': payment.service_no
 			}
 		}
 	};
@@ -57,7 +55,71 @@ EPaid.prototype.create = function(amount, description, order_id, permanent,accou
 
 };
 
-EPaid.prototype.getpaymentbyuid = function(uid){
+Bepaid.prototype.createToken = function(token) {
+	var d = Q.defer();
+
+	var req = {
+		"checkout": {
+	    "transaction_type": token.transaction_type,
+	    "version": token.version || 2,
+	    "attempts": token.attempts || 1,
+	    "settings": {
+	      "success_url": token.settings.success_url,
+	      "decline_url": token.settings.decline_url,
+	      "fail_url": token.settings.fail_url,
+	      // "cancel_url": token.settings.cancel_url || "",
+	      // "notification_url": token.settings.notification_url || "",
+	      // "language": token.settings.language || "",
+	      // "customer_fields" : {
+	      //   "hidden" : token.settings.customer_fields.hidden || [],
+	      //   "read_only" : token.settings.customer_fields.read_only || [],
+	      // }
+	      "customer_fields": token.settings.customer_fields || []
+	    },
+	    "order": {
+	      "currency": token.order.currency,
+	      "amount": token.order.amount,
+	      "description": token.order.description,
+	    },
+	    "customer": {
+	    	"email": token.customer.email,
+	    	// "first_name": token.customer.first_name || "",
+	    	// "last_name": token.customer.last_name || "",
+	      // "address": token.customer.address || "",
+	      // "city": token.customer.city || "",
+	      // "state": token.customer.state || "",
+	      // "zip": token.customer.zip || "",
+	      // "phone": token.customer.phone || "",
+	      // "bith_date": token.customer.bith_date || "",
+	      // "country": token.customer.country || "" 
+	    }
+	  }
+	}
+
+	request(
+		{ method: 'POST',
+			uri: 'https://checkout.begateway.com/ctp/api/checkouts',
+			headers:{
+				'Content-Type': 'applcation/json',
+				'Accept': 'application/json'
+			},
+			form: req,
+			encoding: 'UTF-8',
+			auth: {
+				'user': this.shop_id,
+				'pass': this.shop_key
+			}
+		},
+		function(error,res,body) {
+			if(error){ d.reject(error);}
+			d.resolve(body);
+		}
+	);
+
+	return d.promise;
+}
+
+Bepaid.prototype.getpaymentbyuid = function(uid) {
 
 	var d = Q.defer();
 
@@ -79,7 +141,7 @@ EPaid.prototype.getpaymentbyuid = function(uid){
 
 };
 
-EPaid.prototype.getpaymentbyorder = function(order_id){
+Bepaid.prototype.getpaymentbyorder = function(order_id) {
 
 	var d = Q.defer();
 
@@ -102,7 +164,7 @@ EPaid.prototype.getpaymentbyorder = function(order_id){
 
 };
 
-EPaid.prototype.delete = function(uid){
+Bepaid.prototype.delete = function(uid) {
 
 	var d = Q.defer();
 
@@ -124,4 +186,4 @@ EPaid.prototype.delete = function(uid){
 
 };
 
-module.exports = EPaid;
+module.exports = Bepaid;
