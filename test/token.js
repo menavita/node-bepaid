@@ -1,7 +1,7 @@
 var should = require('should');
 var Bepaid = require('../');
 
-var bepaid = new Bepaid({shop_id: '362', shop_key: '9ad8ad735945919845b9a1996af72d886ab43d3375502256dbf8dd16bca59a4e'});
+var bepaid = new Bepaid({shop_id: '363', shop_key: '4f585d2709776e53d080f36872fd1b63b700733e7624dfcadd057296daa37df6'});
 
 describe('Token', function() {
 	it('should return token and redirect_url', function() {
@@ -20,7 +20,7 @@ describe('Token', function() {
 			'customer': {
 				'email': 'j1367127@mvrht.net'
 			}
-		}).then(function(res) {
+		}, 'https://checkout.bepaid.by/ctp/api/checkouts').then(function(res) {
 			console.log(JSON.parse(res));
 			JSON.parse(res).should.have.property('checkout');
 		})

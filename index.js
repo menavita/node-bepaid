@@ -10,7 +10,7 @@ function Bepaid(shop) {
 
 };
 
-Bepaid.prototype.createErip = function(payment) {
+Bepaid.prototype.createErip = function(payment, url) {
 
 	var d = Q.defer();
 
@@ -33,7 +33,7 @@ Bepaid.prototype.createErip = function(payment) {
 
 	request(
 		{ method: 'POST',
-			uri: 'https://api.bepaid.by/beyag/payments',
+			uri: url, // https://api.bepaid.by/beyag/payments
 			headers:{
 				'Content-Type': 'applcation/json',
 				'Accept': 'application/json'
@@ -55,7 +55,7 @@ Bepaid.prototype.createErip = function(payment) {
 
 };
 
-Bepaid.prototype.createToken = function(token) {
+Bepaid.prototype.createToken = function(token, url) {
 	var d = Q.defer();
 
 	var req = {
@@ -98,7 +98,7 @@ Bepaid.prototype.createToken = function(token) {
 
 	request(
 		{ method: 'POST',
-			uri: 'https://checkout.begateway.com/ctp/api/checkouts',
+			uri: url, // https://checkout.begateway.com/ctp/api/checkouts
 			headers:{
 				'Content-Type': 'applcation/json',
 				'Accept': 'application/json'
@@ -119,13 +119,13 @@ Bepaid.prototype.createToken = function(token) {
 	return d.promise;
 }
 
-Bepaid.prototype.getpaymentbyuid = function(uid) {
+Bepaid.prototype.getpaymentbyuid = function(uid, url) {
 
 	var d = Q.defer();
 
 	request({
 			method: 'GET',
-			uri: 'https://api.bepaid.by/beyag/payments/' + uid,
+			uri: url + uid, // 'https://api.bepaid.by/beyag/payments/' + uid,
 			auth: {
 				'user': this.shop_id,
 				'pass': this.shop_key
@@ -141,13 +141,13 @@ Bepaid.prototype.getpaymentbyuid = function(uid) {
 
 };
 
-Bepaid.prototype.getpaymentbyorder = function(order_id) {
+Bepaid.prototype.getpaymentbyorder = function(order_id, url) {
 
 	var d = Q.defer();
 
 	request({
 			method: 'GET',
-			uri: 'https://api.bepaid.by/beyag/payments/',
+			uri: url,// 'https://api.bepaid.by/beyag/payments/',
 			qs: {order_id: order_id},
 			auth: {
 				'user': this.shop_id,
