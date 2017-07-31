@@ -6,7 +6,7 @@ var Bepaid = require('./node-bepaid');
 
 var bepaid = new Bepaid({shop_id: 'shop_id', shop_key: 'secret-key'});
 
-bepaid.createErip({
+bepaid.createEripPayment({
 	amount: amount, 
 	description: 'description', 
 	order_id 'order_id', 
@@ -15,7 +15,7 @@ bepaid.createErip({
 	service_no: 'service_no', 
 	email: 'email', 
 	notification_url: 'url'
-}).then(function(res){ console.log(JSON.parse(res)); });
+}, url).then(function(res){ console.log(JSON.parse(res)); });
 
 bepaid.createToken({
 	'transaction_type': 'tokenization/authorization/payment',
@@ -32,11 +32,11 @@ bepaid.createToken({
 	'customer': {
 		'email': 'email'
 	}
-}).then(function(res) {
+}, url).then(function(res) {
 	console.log(JSON.parse(res));
 })
 		
-bepaid.getpaymentbyorder('order_id').then(function(res){ console.log(JSON.parse(res)); });
-bepaid.getpaymentbyuid('uid').then(function(res){ console.log(JSON.parse(res)); });
-bepaid.delete('uid').then(function(res){ console.log(JSON.parse(res)); });
+bepaid.getEripPaymentByOrder('order_id', url).then(function(res){ console.log(JSON.parse(res)); });
+bepaid.getEripPaymentByUid('uid', url).then(function(res){ console.log(JSON.parse(res)); });
+bepaid.deleteEripPayment('uid', url).then(function(res){ console.log(JSON.parse(res)); });
 ```

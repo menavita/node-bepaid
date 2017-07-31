@@ -10,7 +10,7 @@ function Bepaid(shop) {
 
 };
 
-Bepaid.prototype.createErip = function(payment, url) {
+Bepaid.prototype.createEripPayment = function(payment, url) {
 
 	var d = Q.defer();
 
@@ -119,7 +119,7 @@ Bepaid.prototype.createToken = function(token, url) {
 	return d.promise;
 }
 
-Bepaid.prototype.getpaymentbyuid = function(uid, url) {
+Bepaid.prototype.getEripPaymentByUid = function(uid, url) {
 
 	var d = Q.defer();
 
@@ -141,7 +141,7 @@ Bepaid.prototype.getpaymentbyuid = function(uid, url) {
 
 };
 
-Bepaid.prototype.getpaymentbyorder = function(order_id, url) {
+Bepaid.prototype.getEripPaymentByOrder = function(order_id, url) {
 
 	var d = Q.defer();
 
@@ -164,13 +164,13 @@ Bepaid.prototype.getpaymentbyorder = function(order_id, url) {
 
 };
 
-Bepaid.prototype.delete = function(uid) {
+Bepaid.prototype.deleteEripPayment = function(uid, url) {
 
 	var d = Q.defer();
 
 	request({
 			method: 'DELETE',
-			uri: 'https://api.bepaid.by/beyag/payments/' + uid,
+			uri: url + uid,// https://api.bepaid.by/beyag/payments/
 			auth: {
 				'user': this.shop_id,
 				'pass': this.shop_key
