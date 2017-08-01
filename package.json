@@ -1,10 +1,11 @@
 {
   "name": "node-bepaid",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Node module for using BePaid API",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 5000 test/token.js"
+    "tokentest": "mocha --timeout 5000 test/token.js",
+    "eriptest": "mocha --timeout 5000 test/erip.js"
   },
   "repository": {
     "type": "git",

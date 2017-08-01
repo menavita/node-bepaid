@@ -5,22 +5,32 @@ var bepaid = new Bepaid({shop_id: '363', shop_key: '4f585d2709776e53d080f36872fd
 
 describe('Token', function() {
 	it('should return token and redirect_url', function() {
-		return bepaid.createToken({
-			'transaction_type': 'tokenization',
-			'settings': {
-				"success_url": "http://127.0.0.1:4567/success",
-	      "decline_url": "http://127.0.0.1:4567/decline",
-	      "fail_url": "http://127.0.0.1:4567/fail"
-			},
-			'order': {
-				'amount': 10,
-				'currency': 'BYN',
-				'description': 'This is a test order',
-			},
-			'customer': {
-				'email': 'j1367127@mvrht.net'
+		return bepaid.createToken(
+			{
+			  "checkout": {
+			    "transaction_type": "payment",
+			    "version": 2,
+			    "attempts": 3,
+			    "settings": {
+			      "success_url": "http://127.0.0.1:4567/success",
+			      "decline_url": "http://127.0.0.1:4567/decline",
+			      "fail_url": "http://127.0.0.1:4567/fail",
+			      "language": "en"
+			    },
+			    "order": {
+			      "currency": "BYN",
+			      "amount": 4,
+			      "description": "Order description"
+			    },
+			    "customer": {
+			      "address": "Baker street 221b",
+			      "country": "GB",
+			      "city": "London",
+			      "email": "jake@example.com"
+			    }
+			  }
 			}
-		}, 'https://checkout.bepaid.by/ctp/api/checkouts').then(function(res) {
+			, 'https://checkout.bepaid.by/ctp/api/checkouts').then(function(res) {
 			console.log(JSON.parse(res));
 			JSON.parse(res).should.have.property('checkout');
 		})
