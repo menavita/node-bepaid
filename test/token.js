@@ -7,28 +7,26 @@ describe('Token', function() {
 	it('should return token and redirect_url', function() {
 		return bepaid.createToken(
 			{
-			  "checkout": {
-			    "transaction_type": "payment",
-			    "version": 2,
-			    "attempts": 3,
-			    "settings": {
-			      "success_url": "http://127.0.0.1:4567/success",
-			      "decline_url": "http://127.0.0.1:4567/decline",
-			      "fail_url": "http://127.0.0.1:4567/fail",
-			      "language": "en"
-			    },
-			    "order": {
-			      "currency": "BYN",
-			      "amount": 4,
-			      "description": "Order description"
-			    },
-			    "customer": {
-			      "address": "Baker street 221b",
-			      "country": "GB",
-			      "city": "London",
-			      "email": "jake@example.com"
-			    }
-			  }
+		    "transaction_type": "payment",
+		    "version": 2,
+		    "attempts": 3,
+		    "settings": {
+		      "success_url": "http://127.0.0.1:4567/success",
+		      "decline_url": "http://127.0.0.1:4567/decline",
+		      "fail_url": "http://127.0.0.1:4567/fail",
+		      "language": "en"
+		    },
+		    "order": {
+		      "currency": "BYN",
+		      "amount": 4,
+		      "description": "Order description"
+		    },
+		    "customer": {
+		      "address": "Baker street 221b",
+		      "country": "GB",
+		      "city": "London",
+		      "email": "jake@example.com"
+		    }
 			}
 			, 'https://checkout.bepaid.by/ctp/api/checkouts').then(function(res) {
 			console.log(JSON.parse(res));

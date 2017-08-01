@@ -21,7 +21,7 @@ Bepaid.prototype.createEripPayment = function(payment, url) {
 				'Content-Type': 'applcation/json',
 				'Accept': 'application/json'
 			},
-			form: payment,
+			form: {"request": payment},
 			encoding: 'UTF-8',
 			auth: {
 				'user': this.shop_id,
@@ -48,7 +48,7 @@ Bepaid.prototype.createToken = function(token, url) {
 				'Content-Type': 'applcation/json',
 				'Accept': 'application/json'
 			},
-			form: token,
+			form: {"checkout": token},
 			encoding: 'UTF-8',
 			auth: {
 				'user': this.shop_id,
