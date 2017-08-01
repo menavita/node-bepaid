@@ -2,7 +2,7 @@
 Node module for using BePaid API
 
 ```javascript
-var Bepaid = require('./node-bepaid');
+var Bepaid = require('node-bepaid');
 
 var bepaid = new Bepaid({shop_id: 'shop_id', shop_key: 'secret-key'});
 
