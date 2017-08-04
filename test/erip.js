@@ -39,8 +39,11 @@ describe('Create ERIP payment', function() {
 		      "receipt_text": ["Первая строка", "Вторая строка"]
 		    }
 			}, 'https://api.bepaid.by/beyag/payments').then(function(res) {
-			console.log(JSON.parse(res));
-			JSON.parse(res).should.have.property('transaction');
+			console.log(res);
+			res.should.have.property('transaction');
+		})
+		.catch(function(e){
+			console.log(e);
 		})
 	})
 })

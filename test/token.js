@@ -29,9 +29,11 @@ describe('Token', function() {
 		    }
 			}
 			, 'https://checkout.bepaid.by/ctp/api/checkouts').then(function(res) {
-			console.log(JSON.parse(res));
-			JSON.parse(res).should.have.property('checkout');
+			console.log('Res:', res);
+			res.should.have.property('checkout');
+		})
+		.catch(function(e){
+			console.log('Err: ', e);
 		})
 	})
 })
-

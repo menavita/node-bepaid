@@ -29,8 +29,11 @@ Bepaid.prototype.createEripPayment = function(payment, url) {
 			}
 		},
 		function(error,res,body) {
-			if(error){ d.reject(error);}
-			d.resolve(body);
+			if(error){ d.reject(JSON.parse(error)); }
+			else if (JSON.parse(body).errors){
+				d.reject(body);
+			}
+			else { d.resolve(JSON.parse(body)) };
 		}
 	);
 
@@ -56,8 +59,11 @@ Bepaid.prototype.createToken = function(token, url) {
 			}
 		},
 		function(error,res,body) {
-			if(error){ d.reject(error);}
-			d.resolve(body);
+			if(error){ d.reject(JSON.parse(error)); }
+			else if (JSON.parse(body).errors){
+				d.reject(body);
+			}
+			else { d.resolve(JSON.parse(body)) };
 		}
 	);
 
@@ -77,8 +83,11 @@ Bepaid.prototype.getEripPaymentByUid = function(uid, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(error);}
-			d.resolve(body);
+			if(error){ d.reject(JSON.parse(error)); }
+			else if (JSON.parse(body).errors){
+				d.reject(body);
+			}
+			else { d.resolve(JSON.parse(body)) };
 		}
 	);
 
@@ -100,8 +109,11 @@ Bepaid.prototype.getEripPaymentByOrder = function(order_id, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(error);}
-			d.resolve(body);
+			if(error){ d.reject(JSON.parse(error)); }
+			else if (JSON.parse(body).errors){
+				d.reject(body);
+			}
+			else { d.resolve(JSON.parse(body)) };
 		}
 	);
 
@@ -122,8 +134,11 @@ Bepaid.prototype.deleteEripPayment = function(uid, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(error);}
-			d.resolve(body);
+			if(error){ d.reject(JSON.parse(error)); }
+			else if (JSON.parse(body).errors){
+				d.reject(body);
+			}
+			else { d.resolve(JSON.parse(body)) };
 		}
 	);
 
