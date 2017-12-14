@@ -3,14 +3,14 @@
 var request = require('request');
 var Q = require('q');
 
-function Bepaid(shop) {
+function bePaid(shop) {
 
 	this.shop_id = shop.shop_id;
 	this.shop_key = shop.shop_key;
 
 };
 
-Bepaid.prototype.createEripPayment = function(payment, url) {
+bePaid.prototype.createEripPayment = function(payment, url) {
 
 	var d = Q.defer();
 
@@ -18,10 +18,11 @@ Bepaid.prototype.createEripPayment = function(payment, url) {
 		{ method: 'POST',
 			uri: url, // https://api.bepaid.by/beyag/payments/
 			headers:{
-				'Content-Type': 'applcation/json',
+				'Content-Type': 'application/json',
 				'Accept': 'application/json'
 			},
-			form: {"request": payment},
+			body: {"request": payment},
+			json: true,			
 			encoding: 'UTF-8',
 			auth: {
 				'user': this.shop_id,
@@ -29,11 +30,9 @@ Bepaid.prototype.createEripPayment = function(payment, url) {
 			}
 		},
 		function(error,res,body) {
-			if(error){ d.reject(JSON.parse(error)); }
-			else if (JSON.parse(body).errors){
-				d.reject(body);
-			}
-			else { d.resolve(JSON.parse(body)) };
+			if (error) d.reject(error);
+			if (body.errors) d.reject(body);
+			d.resolve(body);
 		}
 	);
 
@@ -41,17 +40,18 @@ Bepaid.prototype.createEripPayment = function(payment, url) {
 
 };
 
-Bepaid.prototype.createToken = function(token, url) {
+bePaid.prototype.createToken = function(token, url) {
 	var d = Q.defer();
 
 	request(
 		{ method: 'POST',
 			uri: url, // https://checkout.begateway.com/ctp/api/checkouts/
 			headers:{
-				'Content-Type': 'applcation/json',
+				'Content-Type': 'application/json',
 				'Accept': 'application/json'
 			},
-			form: {"checkout": token},
+			body: {"checkout": token},
+			json: true,
 			encoding: 'UTF-8',
 			auth: {
 				'user': this.shop_id,
@@ -59,18 +59,16 @@ Bepaid.prototype.createToken = function(token, url) {
 			}
 		},
 		function(error,res,body) {
-			if(error){ d.reject(JSON.parse(error)); }
-			else if (JSON.parse(body).errors){
-				d.reject(body);
-			}
-			else { d.resolve(JSON.parse(body)) };
+			if (error) d.reject(error);
+			if (body.errors) d.reject(body);
+			d.resolve(body);
 		}
 	);
 
 	return d.promise;
 }
 
-Bepaid.prototype.getEripPaymentByUid = function(uid, url) {
+bePaid.prototype.getEripPaymentByUid = function(uid, url) {
 
 	var d = Q.defer();
 
@@ -83,11 +81,9 @@ Bepaid.prototype.getEripPaymentByUid = function(uid, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(JSON.parse(error)); }
-			else if (JSON.parse(body).errors){
-				d.reject(body);
-			}
-			else { d.resolve(JSON.parse(body)) };
+			if (error) d.reject(error);
+			if (body.errors) d.reject(body);
+			d.resolve(body);
 		}
 	);
 
@@ -95,7 +91,7 @@ Bepaid.prototype.getEripPaymentByUid = function(uid, url) {
 
 };
 
-Bepaid.prototype.getEripPaymentByOrder = function(order_id, url) {
+bePaid.prototype.getEripPaymentByOrder = function(order_id, url) {
 
 	var d = Q.defer();
 
@@ -109,11 +105,9 @@ Bepaid.prototype.getEripPaymentByOrder = function(order_id, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(JSON.parse(error)); }
-			else if (JSON.parse(body).errors){
-				d.reject(body);
-			}
-			else { d.resolve(JSON.parse(body)) };
+			if (error) d.reject(error);
+			if (body.errors) d.reject(body);
+			d.resolve(body);
 		}
 	);
 
@@ -121,7 +115,7 @@ Bepaid.prototype.getEripPaymentByOrder = function(order_id, url) {
 
 };
 
-Bepaid.prototype.deleteEripPayment = function(uid, url) {
+bePaid.prototype.deleteEripPayment = function(uid, url) {
 
 	var d = Q.defer();
 
@@ -134,11 +128,9 @@ Bepaid.prototype.deleteEripPayment = function(uid, url) {
 			}
 		},
 		function(error,res,body){
-			if(error){ d.reject(JSON.parse(error)); }
-			else if (JSON.parse(body).errors){
-				d.reject(body);
-			}
-			else { d.resolve(JSON.parse(body)) };
+			if (error) d.reject(error);
+			if (body.errors) d.reject(body);
+			d.resolve(body);
 		}
 	);
 
@@ -146,4 +138,4 @@ Bepaid.prototype.deleteEripPayment = function(uid, url) {
 
 };
 
-module.exports = Bepaid;
+module.exports = bePaid;

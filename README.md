@@ -2,9 +2,9 @@
 Node module for using BePaid API
 
 ```javascript
-var Bepaid = require('node-bepaid');
+var bePaid = require('node-bepaid');
 
-var bepaid = new Bepaid({shop_id: 'shop_id', shop_key: 'secret-key'});
+var bepaid = new bePaid({shop_id: 'shop_id', shop_key: 'secret-key'});
 
 bepaid.createEripPayment({
 	amount: amount,
